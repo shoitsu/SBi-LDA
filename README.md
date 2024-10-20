@@ -1,37 +1,49 @@
-# SBi-LDA
-田村一樹さんらによる「評点付きレビュー文書を対象としたトピックモデルの構築に関する検討」で提案されたSBi-LDAを実装してみました。
+# SBi-LDA 実装
 
-元論文(https://ipsj.ixsq.nii.ac.jp/ej/?action=repository_action_common_download&item_id=141419&item_no=1&attribute_id=1&file_no=1)
+## 概要
 
-SBi-LDAとは
+このプロジェクトは、田村一樹さんらによる「評点付きレビュー文書を対象としたトピックモデルの構築に関する検討」で提案されたSBi-LDA（Switched Bi-directional Latent Dirichlet Allocation）モデルの実装です。
 
-トピックモデルをレビュー(口コミ)データ用に拡張されたモデル。
+元論文: [評点付きレビュー文書を対象としたトピックモデルの構築に関する検討](https://ipsj.ixsq.nii.ac.jp/ej/?action=repository_action_common_download&item_id=141419&item_no=1&attribute_id=1&file_no=1)
 
-商品ごとの共通のアイテムトピックとユーザーごとに共通の数をユーザートピックを仮定したモデル。
+## SBi-LDAとは
 
-詳細は上記論文を参照下さい。
+SBi-LDAは、トピックモデルをレビュー（口コミ）データ用に拡張したモデルです。このモデルでは、以下の特徴があります：
 
+- 商品ごとの共通のアイテムトピック
+- ユーザーごとに共通の数のユーザートピック
 
-準備するデータ
+詳細については、上記の論文を参照してください。
 
-以下のカラムを含むDataFrame
+## 準備するデータ
 
-review_text：レビュー本文 形態素解析前の生のテキスト
+以下のカラムを含むDataFrameを準備する必要があります：
 
-user_id：レビュアーID
+- `review_text`：レビュー本文（形態素解析前の生のテキスト）
+- `user_id`：レビュアーID
+- `item_id`：商品ID
 
-item_id：商品ID
+## パラメータの説明
 
+モデルには以下のパラメータがあります：
 
-パラメータの説明
+- `n_user_topics`：ユーザートピック数
+- `n_item_topics`：アイテムトピック数
+- `alpha`, `beta`, `gamma`：事前分布のパラメータ（ハイパーパラメータ）
+- `max_iter`：ギブスサンプリングの最大反復回数
 
-n_user_topics：ユーザートピック数
+## 実行方法
 
-n_item_topics：アイテムトピック数
+実行方法を含むJupyter Notebookファイル（`.ipynb`）とPythonファイル（`.py`）を用意しています。これらのファイルには、モデルの初期化、学習、および結果の可視化方法が記載されています。
 
-alpha,beta,gamma：事前分布のパラメータ(ハイパーパラメータ)
+1. Jupyter Notebookを使用する場合：
+   - `SBi_LDA実装コード.ipynb` を開き、各セルを順に実行してください。
 
-max_iter：ギブスサンプリングの最大反復回数
+2. Pythonスクリプトを使用する場合：
+   - コマンドラインで `python sbilda.py` を実行してください。
 
+## ファイル構成
 
-実行方法まで載せたjpynbファイルとpythonファイルを用意しました。
+- `README.md`：本ファイル（プロジェクトの説明）
+- `SBi_LDA実装コード.ipynb`：Jupyter Notebookファイル（実行例と詳細な説明）
+- `sbilda.py`：Pythonスクリプトファイル（SBi-LDAの実装）
